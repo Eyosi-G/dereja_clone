@@ -1,26 +1,47 @@
-import React from 'react'
+import React, { useState } from 'react'
+import ReactQuill from 'react-quill'
+import { IJob } from '../redux/service/jobs'
 import DetailButton from './buttons/DetailButton'
+import 'react-quill/dist/quill.bubble.css';
+import parse from 'html-react-parser';
+import { imageUrl } from '../redux/common';
+import moment from "moment"
 
-const JobCard = () => {
+interface IProps {
+    job: IJob
+}
+const JobCard = (props: IProps) => {
+    const { job } = props;
+    const image = "https://www.dereja.com/_nuxt/img/vacancy-main.60274d9.png"
+
+    const imageUrlBuilder = () => {
+        if (!job.cover) {
+            return null
+        }
+        if (job.cover.includes("http")) {
+            return job.cover;
+        }
+        return `${imageUrl}/${job.cover}`
+    }
     return (
         <div className='bg-white p-4'>
-            <div className='flex items-center'>
-                <div className='flex justify-center items-center h-[60px] w-[60px]'>
-                    <img className='' src="https://dereja-filestorage-prod.s3.eu-central-1.amazonaws.com/public/jobs/579/ANQ461In5DbX0wcqXA62z83YvFmNaEZdvmVViBhF.jpeg" />
+            <div className='flex items-center h-[60px]'>
+                <div className='flex justify-center items-center flex-shrink-0 w-[60px]'>
+                    <img src={imageUrlBuilder() || image} className="w-full h-full" />
                 </div>
-                <h2 className='text-[#4d4d4d] capitalize'>Dubai Training Center</h2>
+                <h2 className='ml-5 text-[#4d4d4d] capitalize line-clamp-2'>{job.company_name}</h2>
             </div>
             <div className='flex justify-between mt-3'>
-                <p className='text-[#d22464] font-bold capitalize'>Office Assistant</p>
-                <p className='text-sm text-[#730626]'>Feb 20, 2023</p>
+                <p className='text-[#d22464] font-bold capitalize truncate'>{job.name}</p>
+                <p className='text-sm text-[#730626] whitespace-nowrap'>{moment(job.deadline).format('ll')}</p>
             </div>
 
             <div className='flex justify-between text-xs text-gray-500'>
-                <p>Secretarial and Clerical, Manufacturing</p>
-                <p>18 h</p>
+                <p>{job.categories[0].name}</p>
+                <p className='whitespace-nowrap'>{moment(job.published_at).startOf('day').fromNow()}</p>
             </div>
-            <p className='mt-5 line-clamp-4 text-sm text-[#4d4d4d] '>
-                Dubai Training Center focuses on providing education and improving the capabilities of workers who are traveling overseas for employment purposes. At present, the center is in the process of establishing a marketing office and to support this expansion, they are looking to hire a Salesperson. This individual will be responsible for promoting the center's services, identifying new business opportunities and contributing to the growth of the organization.
+            <p className='mt-5 line-clamp-4 text-sm text-[#4d4d4d] font-normal ' >
+                {parse(job.description)}
             </p>
             <div className='mt-3'>
                 <DetailButton text='view job details' onClickHandler={() => { }} />
