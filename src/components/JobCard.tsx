@@ -1,5 +1,5 @@
 import React from 'react'
-import JobDetailButton from './buttons/JobDetailButton'
+import DetailButton from './buttons/DetailButton'
 
 const JobCard = () => {
     return (
@@ -23,7 +23,7 @@ const JobCard = () => {
                 Dubai Training Center focuses on providing education and improving the capabilities of workers who are traveling overseas for employment purposes. At present, the center is in the process of establishing a marketing office and to support this expansion, they are looking to hire a Salesperson. This individual will be responsible for promoting the center's services, identifying new business opportunities and contributing to the growth of the organization.
             </p>
             <div className='mt-3'>
-                <JobDetailButton onClickHandler={() => { }} />
+                <DetailButton text='view job details' onClickHandler={() => { }} />
             </div>
         </div>
     )

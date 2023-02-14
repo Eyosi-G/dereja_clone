@@ -2,15 +2,15 @@ import React from 'react'
 import BackwardButton from './buttons/BackwardButton'
 import Button from './buttons/Button'
 import ForwardButton from './buttons/ForwardButton'
-import JobCard from './JobCard'
+import CompanyCard from './CompanyCard'
 
-const FeaturedJobContainer = () => {
+const FeaturedCompanies = () => {
   return (
-    <div className='px-24  pt-20 pb-10 bg-[#fcf7f0] '>
+    <div className='px-24  pt-20 pb-10 bg-gray-100'>
       <div className='flex items-center'>
-        <div className='text-3xl font-bold grow'>Featured Jobs</div>
+        <div className='text-3xl font-bold grow'>Featured Companies</div>
         <div>
-          <Button onClickHandler={() => { }} text="View All Jobs" />
+          <Button onClickHandler={() => { }} text="View All Companies" />
         </div>
         <div className='flex items-center ml-14 space-x-2'>
           <BackwardButton onClickHandler={() => { }} />
@@ -18,10 +18,13 @@ const FeaturedJobContainer = () => {
         </div>
       </div>
       <div className='grid grid-cols-4 mt-5 gap-4'>
-        <JobCard/>
+        <CompanyCard />
+        <CompanyCard />
+        <CompanyCard />
+        <CompanyCard />
       </div>
     </div>
   )
 }
 
-export default FeaturedJobContainer
+export default FeaturedCompanies
