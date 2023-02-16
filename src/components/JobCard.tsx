@@ -23,8 +23,15 @@ const JobCard = (props: IProps) => {
         }
         return `${imageUrl}/${job.cover}`
     }
+    const formatDate = ()=> {
+        if(Date.parse(job.published_at).toString() == 'NaN'){
+            const reversed = job.published_at.split("-");
+            return moment(`${reversed[2]}-${reversed[1]}-${reversed[0]}`).fromNow()
+        }
+        return moment(job.published_at).fromNow()
+    }
     return (
-        <div className='bg-white p-4'>
+        <div className='bg-white p-4 rounded-md'>
             <div className='flex items-center h-[60px]'>
                 <div className='flex justify-center items-center flex-shrink-0 w-[60px]'>
                     <img src={imageUrlBuilder() || image} className="w-full h-full" />
@@ -38,7 +45,7 @@ const JobCard = (props: IProps) => {
 
             <div className='flex justify-between text-xs text-gray-500'>
                 <p>{job.categories[0].name}</p>
-                <p className='whitespace-nowrap'>{moment(job.published_at).startOf('day').fromNow()}</p>
+                <p className='whitespace-nowrap'>{formatDate()}</p>
             </div>
             <p className='mt-5 line-clamp-4 text-sm text-[#4d4d4d] font-normal ' >
                 {parse(job.description)}

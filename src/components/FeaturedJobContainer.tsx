@@ -1,41 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import useWindowDimensions from '../hooks/dimension-hook'
 import { useAppDispatch, useAppSelector } from '../hooks/redux-hook'
+import useSlideHook from '../hooks/slide-hook'
 import { useGetLatestJobsQuery } from '../redux/service/jobs'
 import BackwardButton from './buttons/BackwardButton'
 import Button from './buttons/Button'
 import ForwardButton from './buttons/ForwardButton'
+import Carousel from './carousel/Carousel'
 import JobCard from './JobCard'
 
 const FeaturedJobContainer = () => {
   const { isSuccess, data } = useGetLatestJobsQuery()
-  const [startIndex, setStartIndex] = useState(0)
-  const [size, setSize] = useState(1)
-  const [endIndex, setEndIndex] = useState(() => size)
-  const { width } = useWindowDimensions()
+  const [length, setLength] = useState(0)
+
+  const { currentIndex, show, next, prev } = useSlideHook({
+    length, sizes: [
+      {
+        show: 4,
+        sizeRange: 'width > 1024'
+      },
+      {
+        show: 3,
+        sizeRange: 'width > 768 && width < 1024'
+      },
+      {
+        show: 1,
+        sizeRange: 'width < 768'
+      }
+    ]
+  })
+
   useEffect(() => {
-    if (width > 1024 && size !== 4) {
-      setSize(4)
-      setEndIndex(4)
-      setStartIndex(0)
-      return
+    if (isSuccess) {
+      setLength(data.data.length)
     }
-    if (width > 768 && width < 1024 && size !== 3) {
-      setSize(3)
-      setEndIndex(3)
-      setStartIndex(0)
-      return
-    }
-
-    if (width < 768 && size !== 1) {
-      setSize(1)
-      setEndIndex(1)
-      setStartIndex(0)
-      return
-    }
-
-  }, [width])
-
+  }, [isSuccess])
 
   if (!isSuccess) return null;
 
@@ -47,29 +46,16 @@ const FeaturedJobContainer = () => {
           <Button onClickHandler={() => { }} text="View All Jobs" />
         </div>
         <div className='flex items-center ml-14 space-x-2'>
-          <BackwardButton onClickHandler={() => {
-            if (startIndex === 0) {
-              return;
-            }
-            setEndIndex(startIndex)
-            setStartIndex(startIndex - size)
-
-          }} />
-          <ForwardButton onClickHandler={() => {
-            if (startIndex + size > data.data.length) {
-              setStartIndex(0)
-              setEndIndex(size)
-              return
-            }
-            setStartIndex(endIndex)
-            setEndIndex(endIndex + size)
-          }} />
+          <BackwardButton onClickHandler={prev} />
+          <ForwardButton onClickHandler={next} />
         </div>
       </div>
-      <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4  mt-5 gap-4'>
-        {isSuccess && data.data.slice(startIndex, endIndex).map(job => {
-          return <JobCard job={job} />
-        })}
+      <div className='mt-10'>
+        <Carousel currentIndex={currentIndex} show={show}>
+          {isSuccess && data.data.map(job => {
+            return <JobCard job={job} />
+          })}
+        </Carousel>
       </div>
     </div>
   )
