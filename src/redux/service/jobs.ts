@@ -56,7 +56,8 @@ export interface ISearchJobResponse {
             categories: ICategory[];
             published_at: string;
 
-        }[]
+        }[],
+        total: number;
     }
 }
 

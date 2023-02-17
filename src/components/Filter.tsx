@@ -23,13 +23,17 @@ const Filter = (props: IProps) => {
         </div>
       </div>
       {open && Object.values(filter.filters).map(filter => {
-        return <div className='px-5 py-1 flex items-center space-x-2'>
-          <div><input checked={selected.includes(filter.id)} onChange={() => toggleFilter(filter.id, type)} className='w-4 h-4 border-gray-300 rounded checked:accent-[#e26300]' type="checkbox" /></div>
-          <div>{filter.name}</div>
+        return <div className='px-5 py-1 flex items-center'>
+          <div className='flex items-center space-x-2'>
+            <div><input checked={selected.includes(filter.id)} onChange={() => toggleFilter(filter.id, type)} className='w-4 h-4 border-gray-300 rounded checked:accent-[#e26300]' type="checkbox" /></div>
+            <div>{filter.name}</div>
+          </div>
+          <div className='grow border border-dashed mx-1' />
+          <div>{filter.count}</div>
         </div>
       })}
     </div>
   )
 }
 
-export default Filter
+export default React.memo(Filter)
