@@ -9,8 +9,8 @@ const CourseCard = (props:IProps) => {
     const { course} = props;
     return (
         <div className='bg-white'>
-            <div className='relative'>
-                <div className='h-[200px] w-full flex justify-center'>
+            <div className=''>
+                <div className='h-[200px]  flex justify-center'>
                     <img className='h-full w-full object-cover' src={`https://dereja-filestorage-prod.s3.eu-central-1.amazonaws.com/public/${course.cover}`} />
                 </div>
             </div>

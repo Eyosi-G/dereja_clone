@@ -11,7 +11,7 @@ const Carousel = (props: IProps) => {
     return (
         <div className='relative transition-all '>
             <div
-                className={`grid grid-cols-${show}  gap-4 w-full`}
+                className={`grid grid-cols-${show}  gap-4 `}
             >
                 {children.slice(currentIndex, currentIndex + show)}
             </div>

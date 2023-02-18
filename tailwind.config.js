@@ -9,4 +9,9 @@ module.exports = {
   plugins: [
     require('@tailwindcss/line-clamp'),
   ],
+  safelist: [
+    {
+        pattern: /grid-cols-./,
+    }
+  ],
 }

@@ -17,13 +17,16 @@ export interface ICompany {
     location: string;
     logo: string;
     sector: ISector;
-    brand: IBrand | null
+    brand: IBrand | null;
+    created_at: string;
 }
 
 export interface IGetCompanyResponse {
     data: ICompany[],
     success: boolean;
+    total: number;
 }
+
 const companiesService = api.injectEndpoints({
     endpoints(build) {
         return {
@@ -31,10 +34,15 @@ const companiesService = api.injectEndpoints({
                 query: () => ({
                     url: "featuredCompanies"
                 })
+            }),
+            getCompanies: build.query<IGetCompanyResponse, number>({
+                query: (page)=>({
+                    url: `companies?search=&page=${page}&per_page=9`
+                })
             })
         }
     },
 })
 
 
-export const { useGetFeaturedCompaniesQuery } = companiesService;
+export const { useGetFeaturedCompaniesQuery, useGetCompaniesQuery } = companiesService;

@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import CompaniesPage from "./pages/CompaniesPage";
 import HomePage from "./pages/HomePage";
 import JobsPage from "./pages/JobsPage";
 
@@ -10,6 +11,10 @@ const router = createBrowserRouter([
     {
         path: "/jobs",
         element: <JobsPage />
+    },
+    {
+        path: "/companies",
+        element: <CompaniesPage />
     }
 ]);
 
