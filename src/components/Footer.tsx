@@ -2,8 +2,8 @@ import React from 'react'
 
 const Footer = () => {
     return (
-        <div className='px-10 py-5 text-white bg-[#730626]'>
-            <div className='flex justify-between mt-5  font-light'>
+        <div className='px-10 py-5 text-white bg-[#730626] text-sm md:text-base '>
+            <div className='flex flex-col space-y-5 md:flex-row justify-between mt-5  font-light'>
                 <div className='space-y-4 '>
                     <div className='flex items-center space-x-4'>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
@@ -15,7 +15,7 @@ const Footer = () => {
                         </div>
                     </div>
                     <div className='flex items-center space-x-4'>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 flex-shrink-0">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                         </svg>
                         <div className='flex flex-col'>
@@ -58,11 +58,11 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            <div className='mt-10 flex justify-between'>
+            <div className='mt-10 flex flex-col md:flex-row space-y-5 justify-between'>
                 <div className='text-white'>
                     <img src="https://www.dereja.com/_nuxt/img/Logo.8dc33b3.svg" />
                 </div>
-                <div className='flex space-x-2'>
+                <div className='flex space-x-5'>
                     <img className='w-6' src="https://www.dereja.com/_nuxt/img/facebook-sharing.6625d25.svg" />
                     <img className='w-6' src="https://www.dereja.com/_nuxt/img/twitter-sharing.6e8a29f.svg" />
                     <img className='w-6' src="https://www.dereja.com/_nuxt/img/linkedin-footer.75b13c2.svg" />

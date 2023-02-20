@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import useWindowDimensions from '../hooks/dimension-hook'
 import useSlideHook from '../hooks/slide-hook'
 import { useGetFeaturedCompaniesQuery } from '../redux/service/company'
 import BackwardButton from './buttons/BackwardButton'

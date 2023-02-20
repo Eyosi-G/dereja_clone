@@ -2,6 +2,7 @@ import React from 'react'
 import Header from './Header'
 import MenuItem from './MenuItem'
 
+
 const NavBar = () => {
     return (
         <div className='flex justify-between items-center py-4 px-24 bg-white'>

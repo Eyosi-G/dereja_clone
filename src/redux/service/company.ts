@@ -8,6 +8,13 @@ export interface ISector {
 export interface IBrand {
     about: string;
     cover: string;
+    culture: string;
+    gallary: {
+        id: number;
+        link: string;
+    }[],
+    video: string;
+    why_work_for_us: string;
 }
 
 export interface ICompany {
@@ -36,7 +43,7 @@ const companiesService = api.injectEndpoints({
                 })
             }),
             getCompanies: build.query<IGetCompanyResponse, number>({
-                query: (page)=>({
+                query: (page) => ({
                     url: `companies?search=&page=${page}&per_page=9`
                 })
             })
