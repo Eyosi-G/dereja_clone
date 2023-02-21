@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, NavLink, useParams } from 'react-router-dom'
 import BackwardButton from '../components/buttons/BackwardButton'
 import ForwardButton from '../components/buttons/ForwardButton'
 import Carousel from '../components/carousel/Carousel'
@@ -8,9 +8,15 @@ import parse from 'html-react-parser';
 import Footer from '../components/Footer'
 import NavBar from '../components/NavBar'
 import MenuItem from '../components/MenuItem'
+import { useGetSingleCompanyQuery } from '../redux/service/company'
+import { skipToken } from '@reduxjs/toolkit/dist/query'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.bubble.css';
+import LoadingModal from '../components/LoadingModal'
 
 const CompanyProfilePage = () => {
-
+  const { id } = useParams()
+  const { isSuccess, data, isFetching } = useGetSingleCompanyQuery(id ? parseInt(id) : skipToken)
   const [length, setLength] = useState(4)
   const { currentIndex, show, next, prev } = useSlideHook({
     length, sizes: [
@@ -29,12 +35,21 @@ const CompanyProfilePage = () => {
     ]
   })
 
+  useEffect(() => {
+    if (isSuccess && data.data.brand) {
+      setLength(data.data.brand.gallery.length)
+    }
+  }, [data, isSuccess])
+
   const linkStyleClassName = 'capitalize hover:font-bold hover:cursor-pointer'
 
+
+
   return (
-    <div>
+    <div className='min-h-[400px] relative'>
+      {isFetching && <LoadingModal open={true} />}
       <div className='w-full h-[400px] relative z-10'>
-        <img className=' w-full h-full object-cover ' src="https://dereja-filestorage-prod.s3.eu-central-1.amazonaws.com/public/brand/3/cover/1TSGcyipDO4pOmtllSs1WdCyhTSWzfgBnXTEoAKV.jpeg" />
+        {isSuccess && <img className=' w-full h-full object-cover ' src={`https://dereja-filestorage-prod.s3.eu-central-1.amazonaws.com/public/${data.data.brand?.cover}`} />}
         <div className="absolute mix-blend-multiply  top-0 left-0 right-0 bottom-0 bg-gradient-to-r from-[#8aa2f9] to-[#f26427]" />
         <div className='absolute top-0 w-full hidden md:block'>
           <div className='flex justify-between items-center py-4 px-24 '>
@@ -62,7 +77,7 @@ const CompanyProfilePage = () => {
         <div className='absolute top-10 left-10 right-10 md:static'>
           <div className='md:mx-32 flex flex-col  md:flex-row relative items-center md:items-stretch  md:-top-[80px] z-50 '>
             <div className='bg-white shadow-lg  h-[160px] flex justify-center items-center rounded-lg p-10 '>
-              <img className='max-h-full max-w-full' src='https://dereja-filestorage-prod.s3.eu-central-1.amazonaws.com/public/company_logo/6/cU8reKByetoZNrWlkxx7dpPuB3afSYIBIHRctv5F.jpeg' />
+              <img className='max-h-full max-w-full' src={`https://dereja-filestorage-prod.s3.eu-central-1.amazonaws.com/public/${data?.data.logo}`} />
             </div>
             <div className='p-5 md:p-0 flex flex-col mt-4 md:mt-0 md:ml-10 text-white items-center md:items-stretch'>
               <h1 className='text-2xl md:text-3xl font-bold capitalize '>Unilever</h1>
@@ -71,7 +86,7 @@ const CompanyProfilePage = () => {
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                 </svg>
-                <p>Addis Abeba, Ethiopia</p>
+                <p>{isSuccess && data.data.location}</p>
               </div>
               <div className='grow' />
               <div className='font-bold md:font-normal md:text-[#4d4d4d] space-x-10 flex items-center'>
@@ -83,26 +98,19 @@ const CompanyProfilePage = () => {
           </div>
         </div>
         <section className='flex flex-col items-center md:items-stretch md:flex-row md:mx-32 mt-10 md:mt-0 p-5 md:p-0'>
-          <img className='max-w-[348px] w-[70%] md:w-[32%]' src='https://www.dereja.com/_nuxt/img/about-us.55fd422.png' />
+          <img className='max-w-[348px] w-[70%] md:w-[32%]' src={data?.data.brand?.about_us_cover ? `https://dereja-filestorage-prod.s3.eu-central-1.amazonaws.com/public/${data?.data.brand?.about_us_cover}` : 'https://www.dereja.com/_nuxt/img/about-us.55fd422.png'} />
           <div className='md:ml-32 mt-5 md:mt-0'>
             <h1 className='text-2xl md:text-4xl text-[#4d4d4d] font-bold text-center md:text-start'>About Us</h1>
-            <p className='text-sm mt-5 md:mt-10 '>We’ve been pioneers, innovators and future-makers for over 120 years.The success we’ve achieved means that, today, 2.5 billion people will use our products to feel good, look good and get more out of life.
-
-              Our brands give us a unique opportunity to create positive change, to grow our business, and to achieve our purpose of making sustainable living commonplace.
-
-              2.5 billion people use our products each day
-              400+ Unilever brands are used by consumers worldwide
-              190 Countries in which our brands are sold
-              155,000 Unilever people deliver our success
-              €52 billion Our turnover in 2019
+            <p className='text-sm mt-5 '>
+              {isSuccess && <ReactQuill value={data.data.brand?.about || ""} readOnly theme="bubble" />}
             </p>
           </div>
         </section>
         <section className='flex items-center md:items-stretch flex-col-reverse md:flex-row bg-[#fcf7f0] mt-10 md:px-32 p-10' >
           <div className='md:mr-32 mt-5 md:mt-0'>
             <h1 className='text-2xl md:text-4xl text-[#4d4d4d] font-bold  text-center md:text-start'>Why work for us?</h1>
-            <p className='mt-5 md:mt-10 text-sm'>Unilever’s reputation for doing business with integrity and with respect for the interests of those our activities can affect is an asset, just as real as our people and brands. Our first priority is to be a successful business: that means investing for growth and balancing short term and long term interests. It also means caring about our consumers, employees and shareholders, our business partners and the world in which we live.
-              To succeed requires the highest standards of behavior from all of us. We want our Code of Business Principles, related Code Policies and third party compliance programme to have a positive impact in day-to-day business: each one of us must uphold these at all times.
+            <p className='mt-5 md:mt-10 text-sm'>
+              {isSuccess && <ReactQuill value={data.data.brand?.why_work_for_us || ""} readOnly theme="bubble" />}
             </p>
           </div>
           <img className='max-w-[348px] w-full md:w-[32%]' src='https://www.dereja.com/_nuxt/img/about-us.604838c.png' />
@@ -116,25 +124,31 @@ const CompanyProfilePage = () => {
             </div>
           </div>
           <div className='mt-10'>
-            <Carousel currentIndex={currentIndex} show={show}>
-              <img className='rounded-md' src="https://dereja-filestorage-prod.s3.eu-central-1.amazonaws.com/public/brand/3/gallery/RhG5rbg1LUbTFyuGRKhRYG0Dlcx6xw1upRMdqjEZ.jpeg" />
-              <img className='rounded-md' src="https://dereja-filestorage-prod.s3.eu-central-1.amazonaws.com/public/brand/3/gallery/m8mNf1oCjgG8nNQ7hOlDTVQg9fWgdJpSxwXWoZXF.jpeg" />
-              <img className='rounded-md' src="https://dereja-filestorage-prod.s3.eu-central-1.amazonaws.com/public/brand/3/gallery/Ys12Qu9x95BkxHPhFhvdVFsffVPSCHki7o3Szrks.jpeg" />
-            </Carousel>
+            {
+              isSuccess && data.data.brand && <Carousel currentIndex={currentIndex} show={show}>
+                {
+                  data.data.brand.gallery.map((imgdata) => {
+                    return <img className='rounded-md' src={`https://dereja-filestorage-prod.s3.eu-central-1.amazonaws.com/public/${imgdata.link}`} />
+                  })
+                }
+              </Carousel>
+            }
           </div>
         </section>
         <section className='flex s justify-center items-center bg-[#fcf7f0] mt-10 p-5 md:px-32 md:p-10' >
           <div className='bg-white w-full md:w-[80%] my-5 md:my-10 rounded-lg p-5 md:p-10'>
             <h1 className='text-2xl md:text-4xl text-[#4d4d4d] font-bold text-center'>Company Culture</h1>
-            <p className='mt-5 md:mt-10 text-xs md:text-sm '>Our Corporate Purpose states that to succeed requires "the highest standards of corporate behavior towards everyone we work with, the communities we touch, and the environment on which we have an impact."
-              Our values define how we do business and interact with our colleagues, partners, customers and consumers. Our four core values are integrity, responsibility, respect and pioneering. As we expand into new markets, recruit new talent and face new challenges, these guide our people in the decisions and actions they take every day.
+            <p className='mt-5 md:mt-10 text-xs md:text-sm '>
+              {isSuccess && <ReactQuill value={data.data.brand?.culture || ""} readOnly theme="bubble" />}
             </p>
           </div>
         </section>
-        <section className=' md:mx-32 mt-10 p-5'>
-          <h1 className='mb-5 w-full text-2xl md:text-4xl text-[#4d4d4d] font-bold text-center'>Company Video</h1>
-          <iframe className='w-full' height="400" src="https://www.youtube.com/embed/FzDqGm7oF2k" ></iframe>
-        </section>
+        {
+          isSuccess && data.data.brand && <section className=' md:mx-32 mt-10 p-5'>
+            <h1 className='mb-5 w-full text-2xl md:text-4xl text-[#4d4d4d] font-bold text-center'>Company Video</h1>
+            <iframe className='w-full' height="400" src={`https://www.youtube.com/embed/${data.data.brand.video.split("v=")[1]}`} ></iframe>
+          </section>
+        }
 
         <section className='flex flex-col items-center md:items-start md:flex-row md:mx-32 mt-10 p-5'>
           <div className='text-center relative'>
@@ -143,7 +157,9 @@ const CompanyProfilePage = () => {
           </div>
           <div className='md:ml-32'>
             <h1 className='text-2xl md:text-4xl text-[#4d4d4d] font-bold text-center md:text-start'>Developing young Talent</h1>
-            <p className='text-sm mt-5 md:mt-10  '>Our Future Leaders Programme will ignite the leader in you. This unique programme is designed to develop Unilever’s Future Leaders (UFL) by providing challenging and purposeful opportunities that accelerate their readiness to take on business leadership roles. The programme encompasses rotations within and across functions in an accelerated learning environment. This includes extended leadership contact, formal training and professional development. Create your own journey through experiences, explore your potential, and join us to shape the future.</p>
+            <p className='text-sm mt-5 md:mt-10  '>
+              {isSuccess && <ReactQuill value={data.data.brand?.developing_young_talent || ""} readOnly theme="bubble" />}
+            </p>
           </div>
         </section>
       </div>

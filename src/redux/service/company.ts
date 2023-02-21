@@ -9,12 +9,14 @@ export interface IBrand {
     about: string;
     cover: string;
     culture: string;
-    gallary: {
+    gallery: {
         id: number;
         link: string;
     }[],
     video: string;
     why_work_for_us: string;
+    developing_young_talent: string;
+    about_us_cover?: string;
 }
 
 export interface ICompany {
@@ -34,6 +36,12 @@ export interface IGetCompanyResponse {
     total: number;
 }
 
+export interface SingleCompanyResponse {
+    data: ICompany;
+    success: boolean;
+
+}
+
 const companiesService = api.injectEndpoints({
     endpoints(build) {
         return {
@@ -46,10 +54,15 @@ const companiesService = api.injectEndpoints({
                 query: (page) => ({
                     url: `companies?search=&page=${page}&per_page=9`
                 })
+            }),
+            getSingleCompany: build.query<SingleCompanyResponse, number>({
+                query: (id)=>({
+                    url:`companies/${id}`
+                })
             })
         }
     },
 })
 
 
-export const { useGetFeaturedCompaniesQuery, useGetCompaniesQuery } = companiesService;
+export const { useGetFeaturedCompaniesQuery, useGetCompaniesQuery, useGetSingleCompanyQuery } = companiesService;

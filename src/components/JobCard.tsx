@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import ReactQuill from 'react-quill'
 import { IJob } from '../redux/service/jobs'
 import DetailButton from './buttons/DetailButton'
-import 'react-quill/dist/quill.bubble.css';
 import parse from 'html-react-parser';
 import { imageUrl } from '../redux/common';
 import moment from "moment"
+import { useNavigate } from 'react-router-dom';
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.bubble.css';
 
 interface IProps {
     job: IJob
@@ -13,7 +14,7 @@ interface IProps {
 const JobCard = (props: IProps) => {
     const { job } = props;
     const image = "https://www.dereja.com/_nuxt/img/vacancy-main.60274d9.png"
-
+    const navigate = useNavigate()
     const imageUrlBuilder = () => {
         if (!job.cover) {
             return null
@@ -47,11 +48,11 @@ const JobCard = (props: IProps) => {
                 <p>{job.categories[0].name}</p>
                 <p className='whitespace-nowrap'>{formatDate()}</p>
             </div>
-            <p className='mt-5 line-clamp-4 text-sm text-[#4d4d4d] font-normal ' >
+            <p className='mt-5 line-clamp-4 text-sm text-[#4d4d4d] font-normal text-start ' >
                 {parse(job.description)}
             </p>
             <div className='mt-3'>
-                <DetailButton text='view job details' onClickHandler={() => { }} />
+                <DetailButton text='view job details' onClickHandler={() => { navigate(`/jobs/${job.slug}`)}} />
             </div>
         </div>
     )

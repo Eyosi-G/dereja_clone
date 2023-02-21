@@ -8,7 +8,7 @@ interface IProps {
 const MenuItem = (props: IProps) => {
     const { name, path } = props;
     return (
-        <NavLink to={path} className={({ isActive }) => `capitalize hover:text-[#e26300] hover:cursor-pointer ${isActive ? "text-[#e26300]" : ""} `}>{name}</NavLink>
+        <NavLink end to={path} className={({ isActive }) => `capitalize hover:text-[#e26300] hover:cursor-pointer ${isActive ? "text-[#e26300]" : ""} `}>{name}</NavLink>
     )
 }
 

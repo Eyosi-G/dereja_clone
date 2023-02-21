@@ -1,6 +1,7 @@
 import { FilterName, IFilterStateType } from "../../pages/JobsPage";
 import { api } from "./api";
 import { ICategory } from "./category";
+import { ICompany } from "./company";
 
 export interface IJob {
     id: number;
@@ -14,6 +15,7 @@ export interface IJob {
     deadline: string;
     categories: ICategory[];
     published_at: string;
+    job_requests_count?: number;
 }
 
 export interface IJobsResponse {
@@ -68,6 +70,11 @@ export interface ISearchJobRequest {
     filter: IFilterStateType;
 }
 
+
+export interface ISingleJobResponse {
+    data: IJob,
+    similarJobs: IJob[]
+}
 const jobService = api.injectEndpoints({
     endpoints(build) {
         return {
@@ -93,9 +100,14 @@ const jobService = api.injectEndpoints({
                         url: `job?search=${data.search}&page=${data.page}&per_page=${data.limit}${filterQuery}`
                     }
                 }
+            }),
+            getSingleJob: build.query<ISingleJobResponse, string>({
+                query: (slug) => ({
+                    url: `job/${slug}`
+                })
             })
         }
     },
 })
 
-export const { useGetLatestJobsQuery, useSearchJobsQuery } = jobService;
+export const { useGetLatestJobsQuery, useSearchJobsQuery, useGetSingleJobQuery } = jobService;
