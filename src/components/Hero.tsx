@@ -11,8 +11,8 @@ const Hero = () => {
 
     return (
         <div className='h-[440px] overflow-hidden relative'>
-            <img src='/images/mastercard.png' className='absolute bottom-10 right-32 z-40' />
-            <img src='/images/first_section_bg.png' className='absolute h-full w-full object-cover object-left-top' />
+            <img src='https://www.dereja.com/_nuxt/img/mastercard_white.5b04947.png' className='absolute bottom-10 right-32 z-40' />
+            <img src='https://www.dereja.com/_nuxt/img/first_section_bg.fdff246.png' className='absolute h-full w-full object-cover object-left-top' />
             <div className='absolute left-10 md:left-auto right-10 md:right-24 top-10'>
                 <div className='hidden md:flex justify-end space-x-2 '>
                     <button className='bg-white text-[#d22464] px-6 py-2 rounded-lg font-bold'>Login</button>

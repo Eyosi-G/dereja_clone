@@ -54,7 +54,7 @@ const Footer = () => {
                 <div>
                     <p className='font-bold'>Supported by</p>
                     <div className='mt-3 space-y-2 '>
-                        <img src="/images/mastercard.png" />
+                        <img src="https://www.dereja.com/_nuxt/img/mastercard_white.5b04947.png" />
                     </div>
                 </div>
             </div>

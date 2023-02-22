@@ -59,7 +59,7 @@ const JobDetailPage = () => {
       <>
         <div className='min-h-[300px]'>
           <div className='relative '>
-            <img className='absolute z-10 -top-48 ' src="/images/bg_top.png" />
+            <img className='absolute z-10 -top-48 ' src="https://www.dereja.com/_nuxt/img/bg_top.95ccfa7.png" />
           </div>
           {
             isSuccess && <div className=' md:mx-10 lg:mx-32 lg:my-10 z-20 relative p-5 md:p-10 text-[#4d4d4d]'>
