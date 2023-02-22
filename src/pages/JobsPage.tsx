@@ -6,6 +6,7 @@ import JobCard from '../components/JobCard'
 import LoadingModal from '../components/LoadingModal'
 import NavBar from '../components/NavBar'
 import Pagination from '../components/Pagination'
+import { Layout } from '../constant'
 import { useSearchJobsQuery } from '../redux/service/jobs'
 
 export enum FilterType {
@@ -26,10 +27,7 @@ export interface IFilterStateType {
 
 export type FilterName = keyof IFilterStateType;
 
-enum Layout {
-    GRID,
-    ROW
-}
+
 const JobsPage = () => {
     const [page, setPage] = useState(0)
     const [layout, setLayout] = useState<Layout>(Layout.GRID)

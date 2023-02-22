@@ -3,7 +3,6 @@ import React from 'react'
 import ReactQuill from 'react-quill';
 import { IJob } from '../redux/service/jobs'
 import Button from './buttons/Button'
-import parse from 'html-react-parser';
 import 'react-quill/dist/quill.bubble.css';
 
 interface IProps {
