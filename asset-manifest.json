@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/dereja_clone/static/css/main.0fb1615e.css",
+    "main.js": "/dereja_clone/static/js/main.24abcd7d.js",
+    "static/js/787.47c8aa6a.chunk.js": "/dereja_clone/static/js/787.47c8aa6a.chunk.js",
+    "index.html": "/dereja_clone/index.html",
+    "main.0fb1615e.css.map": "/dereja_clone/static/css/main.0fb1615e.css.map",
+    "main.24abcd7d.js.map": "/dereja_clone/static/js/main.24abcd7d.js.map",
+    "787.47c8aa6a.chunk.js.map": "/dereja_clone/static/js/787.47c8aa6a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0fb1615e.css",
+    "static/js/main.24abcd7d.js"
+  ]
+}
