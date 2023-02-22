@@ -5,7 +5,7 @@ import MenuItem from './MenuItem'
 
 const NavBar = () => {
     return (
-        <div className='flex justify-between items-center py-4 px-24 bg-white'>
+        <div className='md:flex justify-between items-center py-4 px-24 bg-white hidden'>
             <img src="/images/logo.svg" />
             <div className='flex space-x-5 text-gray-500'>
                 <MenuItem name='jobs' path='/jobs' />

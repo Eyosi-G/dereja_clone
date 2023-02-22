@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import LoadingModal from '../components/LoadingModal'
 import NavBar from '../components/NavBar'
+import SmallSizedScreenNavBar from '../components/SmallSizedScreenNavBar'
 import { Layout } from '../constant'
 import { useGetArticleCategoryQuery, useGetArticlesQuery } from '../redux/service/article'
 
@@ -24,7 +25,8 @@ const ArticlesPage = () => {
     return (
         <div className='bg-[#fcf7f0] relative'>
             {(isCategoryFetching || isArticleFetching) && <LoadingModal open={true} />}
-            <div className='relative z-20'>
+            <div className='relative z-50'>
+                <SmallSizedScreenNavBar />
                 <NavBar />
                 <Header />
             </div>
@@ -34,7 +36,7 @@ const ArticlesPage = () => {
                 </div>
 
                 <>
-                    <div className='px-24 pt-20 relative z-20'>
+                    <div className='px-5 md:px-24 pt-20 pb-5 relative z-20'>
                         <div className='grid grid-cols-12  gap-5'>
                             <div className='hidden col-span-full  md:block md:col-span-3 h-min bg-white rounded-md py-2'>
                                 {

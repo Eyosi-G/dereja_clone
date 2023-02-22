@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import LoadingModal from '../components/LoadingModal';
 import NavBar from '../components/NavBar';
 import Pagination from '../components/Pagination';
+import SmallSizedScreenNavBar from '../components/SmallSizedScreenNavBar';
 import { useGetCompaniesQuery } from '../redux/service/company';
 
 const CompaniesPage = () => {
@@ -13,7 +14,8 @@ const CompaniesPage = () => {
     return (
         <div className='bg-[#fcf7f0] relative'>
             {isFetching && <LoadingModal open={true} />}
-            <div className='relative z-20'>
+            <div className='relative z-50'>
+                <SmallSizedScreenNavBar />
                 <NavBar />
                 <Header />
             </div>
@@ -23,7 +25,7 @@ const CompaniesPage = () => {
                         <img className='absolute z-10 -top-48 ' src="/images/bg_top.png" />
                     </div>
 
-                    <div className='grid grid-cols-2 px-24 pt-10 relative z-20 gap-4'>
+                    <div className='grid grid-cols-1 md:grid-cols-2 px-5 md:px-24 pt-10 relative z-20 gap-4'>
                         {data.data.map(company => {
                             return <CompanyItem company={company} />
                         })}

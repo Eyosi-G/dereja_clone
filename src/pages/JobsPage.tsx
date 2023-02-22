@@ -6,6 +6,7 @@ import JobCard from '../components/JobCard'
 import LoadingModal from '../components/LoadingModal'
 import NavBar from '../components/NavBar'
 import Pagination from '../components/Pagination'
+import SmallSizedScreenNavBar from '../components/SmallSizedScreenNavBar'
 import { Layout } from '../constant'
 import { useSearchJobsQuery } from '../redux/service/jobs'
 
@@ -61,7 +62,8 @@ const JobsPage = () => {
     return (
         <div className='bg-[#fcf7f0] relative'>
             {isFetching && <LoadingModal open={true} />}
-            <div className='relative z-20'>
+            <div className='relative z-50'>
+                <SmallSizedScreenNavBar />
                 <NavBar />
                 <Header />
             </div>
@@ -72,7 +74,7 @@ const JobsPage = () => {
 
                 {
                     isSuccess && <>
-                        <div className='px-24 pt-20 relative z-20'>
+                        <div className='px-5 md:px-24 pt-20 relative z-20'>
                             <div className='grid grid-cols-12  gap-5'>
                                 <div className='hidden col-span-full  md:block md:col-span-3 h-min bg-white rounded-md py-2'>
                                     <Filter selected={filter.types} toggleFilter={toggleFilter} type="types" title='Job Type' filter={data.data.filters.types} />
