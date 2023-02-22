@@ -10,8 +10,8 @@ const NavBar = () => {
             <div className='flex space-x-5 text-gray-500'>
                 <MenuItem name='jobs' path='/jobs' />
                 <MenuItem name='companies' path='/companies' />
-                <MenuItem name='events' path='/events' />
-                <MenuItem name='courses' path='/courses' />
+                {/* <MenuItem name='events' path='/events' /> */}
+                {/* <MenuItem name='courses' path='/courses' /> */}
                 <MenuItem name='articles' path='/news' />
                 <div className='capitalize'>about us</div>
             </div>

@@ -7,10 +7,12 @@ import Footer from '../components/Footer'
 import Hero from '../components/Hero'
 import NavBar from '../components/NavBar'
 import OurPartners from '../components/OurPartners'
+import SmallSizedScreenNavBar from '../components/SmallSizedScreenNavBar'
 
 const HomePage = () => {
     return (
         <div>
+            <SmallSizedScreenNavBar />
             <NavBar />
             <Hero/>
             <FeaturedJobContainer/>

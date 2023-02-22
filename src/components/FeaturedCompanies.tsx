@@ -36,18 +36,18 @@ const FeaturedCompanies = () => {
 
   if (!isSuccess) return null;
   return (
-    <div className='px-24  pt-20 pb-10 bg-gray-100'>
-      <div className='flex items-center'>
+    <div className='px-5 md:px-24  pt-20 pb-10 bg-gray-100'>
+      <div className='flex flex-col space-y-4 md:space-y-0 md:flex-row items-center'>
         <div className='text-3xl font-bold grow'>Featured Companies</div>
         <div>
           <Button onClickHandler={() => { }} text="View All Companies" />
         </div>
-        <div className='flex items-center ml-14 space-x-2'>
+        <div className='flex items-center md:ml-14 space-x-2'>
           <BackwardButton onClickHandler={prev} />
           <ForwardButton onClickHandler={next} />
         </div>
       </div>
-      <div className='mt-10'>
+      <div className='mt-5 md:mt-10'>
         <Carousel currentIndex={currentIndex} show={show}>
           {data.data.map(company => {
             return <CompanyCard company={company} />

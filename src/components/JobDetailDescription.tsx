@@ -4,18 +4,32 @@ import ReactQuill from 'react-quill';
 import { IJob } from '../redux/service/jobs'
 import Button from './buttons/Button'
 import 'react-quill/dist/quill.bubble.css';
+import { imageUrl } from '../redux/common';
 
 interface IProps {
     job: IJob;
 }
 const JobDetailDescription = (props: IProps) => {
     const { job } = props;
+    const image = "https://www.dereja.com/_nuxt/img/vacancy-main.60274d9.png"
+
+    const imageUrlBuilder = () => {
+        if (!job.cover) {
+            console.log("nul")
+            return null
+        }
+        if (job.cover.includes("http")) {
+            return job.cover;
+        }
+        return `${imageUrl}/${job.cover}`
+    }
+
     return (
         <div className='bg-white rounded-lg '>
             <div className='relative flex flex-col items-center md:grid grid-cols-4 p-5 space-y-3 md:space-y-0 ' >
                 <div className='col-span-2 block md:flex  justify-center'>
                     <div className='md:h-[80px] flex justify-center items-center p-2'>
-                        <img className='max-h-full max-w-full ' src={`https://dereja-filestorage-prod.s3.eu-central-1.amazonaws.com/public/${job.cover}`} />
+                        <img className='max-h-full max-w-full ' src={imageUrlBuilder() || image} />
                     </div>
                     <div className='text-[#4d4d4d] flex flex-row  md:flex-col justify-around'>
                         <h1 className='font-bold'>{job.company_name}</h1>

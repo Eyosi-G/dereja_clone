@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import Filter from '../components/Filter'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
@@ -39,7 +40,9 @@ const JobsPage = () => {
         state: [],
         types: []
     })
-    const { data, isSuccess, isFetching } = useSearchJobsQuery({ search: "", page: page + 1, limit: 9, filter })
+    const [searchParam, _] = useSearchParams();
+
+    const { data, isSuccess, isFetching } = useSearchJobsQuery({ search: searchParam.get("s") || "", page: page + 1, limit: 9, filter })
 
     const toggleFilter = (id: number, type: FilterName) => {
 
@@ -53,7 +56,9 @@ const JobsPage = () => {
                     id
                 ]
         })
+        
     }
+
 
 
     const setPageNumber = (newPage: number) => {
@@ -76,7 +81,7 @@ const JobsPage = () => {
                     isSuccess && <>
                         <div className='px-5 md:px-24 pt-20 relative z-20'>
                             <div className='grid grid-cols-12  gap-5'>
-                                <div className='hidden col-span-full  md:block md:col-span-3 h-min bg-white rounded-md py-2'>
+                                <div className='col-span-full  md:block md:col-span-3 h-min bg-white rounded-md py-2'>
                                     <Filter selected={filter.types} toggleFilter={toggleFilter} type="types" title='Job Type' filter={data.data.filters.types} />
                                     <Filter selected={filter.career_level} toggleFilter={toggleFilter} type="career_level" title='Career Level' filter={data.data.filters.career_level} />
                                     <Filter selected={filter.categories} toggleFilter={toggleFilter} type="categories" title='Job Categories' filter={data.data.filters.categories} />
@@ -84,7 +89,7 @@ const JobsPage = () => {
                                     <Filter selected={filter.state} toggleFilter={toggleFilter} type="state" title='State / Region' filter={data.data.filters.state} />
                                 </div>
                                 <div className='col-span-full md:col-span-9 '>
-                                    <div className='bg-white flex justify-between p-3 rounded-md'>
+                                    <div className='bg-white  justify-between p-3 rounded-md hidden md:flex'>
                                         <span>{data.data.total} Jobs</span>
                                         <div className='space-x-2'>
                                             <button onClick={() => setLayout(Layout.ROW)} className={`${layout === Layout.ROW && 'text-[#e26300]'}`}>

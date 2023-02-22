@@ -13,6 +13,7 @@ import useSlideHook from '../hooks/slide-hook'
 import BackwardButton from '../components/buttons/BackwardButton'
 import ForwardButton from '../components/buttons/ForwardButton'
 import Carousel from '../components/carousel/Carousel'
+import SmallSizedScreenNavBar from '../components/SmallSizedScreenNavBar'
 
 const JobDetailPage = () => {
   const { slug } = useParams()
@@ -50,7 +51,8 @@ const JobDetailPage = () => {
   return (
     <div className='bg-[#fcf7f0] relative'>
       {isFetching && <LoadingModal open={true} />}
-      <div className='relative z-20 hidden'>
+      <div className='relative z-50 '>
+        <SmallSizedScreenNavBar />
         <NavBar />
         <Header />
       </div>

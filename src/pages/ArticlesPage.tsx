@@ -38,7 +38,7 @@ const ArticlesPage = () => {
                 <>
                     <div className='px-5 md:px-24 pt-20 pb-5 relative z-20'>
                         <div className='grid grid-cols-12  gap-5'>
-                            <div className='hidden col-span-full  md:block md:col-span-3 h-min bg-white rounded-md py-2'>
+                            <div className='col-span-full  md:block md:col-span-3 h-min bg-white rounded-md py-2'>
                                 {
                                     isFetchingCategorySuccess &&
                                     <CourseFilter
@@ -49,7 +49,7 @@ const ArticlesPage = () => {
                                 }
                             </div>
                             <div className='col-span-full md:col-span-9 '>
-                                <div className='bg-white flex justify-between p-3 rounded-md'>
+                                <div className='bg-white hidden md:flex justify-between p-3 rounded-md'>
                                     {isFetchingArticleSuccessful && <span>{articleData.data.length} Jobs</span>}
                                     <div className='space-x-2'>
                                         <button onClick={() => setLayout(Layout.ROW)} className={`${layout === Layout.ROW && 'text-[#e26300]'}`}>
